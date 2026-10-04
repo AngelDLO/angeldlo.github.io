@@ -7,11 +7,11 @@
   <meta name="theme-color" content="#f6f6f0">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
-  <meta property="og:title" content="AngelDLO — Apps para tu día a día">
+  <meta property="og:title" content="AngelDLO — Ideas que cobran vida">
   <meta property="og:description" content="Pequeñas herramientas, ideas útiles. Descubre mis apps web y el código detrás de cada proyecto.">
   <meta property="og:url" content="https://angeldlo.github.io/">
   <link rel="canonical" href="https://angeldlo.github.io/">
-  <title>AngelDLO — Apps para tu día a día</title>
+  <title>AngelDLO — Ideas que cobran vida</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23283027'/%3E%3Ctext x='32' y='47' font-size='48' font-family='Georgia,serif' text-anchor='middle' fill='%23e4edcc'%3Ea%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -198,18 +198,227 @@
       .nav-links .github-link .arrow { display: none; }
       .card-body { padding: 20px; }
     }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { transition: none !important; }
-      .button-primary:hover { transform: none; }
-    }
+
     @media (forced-colors: active) {
       .button, .quick-link { border: 1px solid ButtonText; }
     }
+  
+/* Motion edition: an editorial surface, a living sculpture, and a quiet rhythm. */
+[hidden] { display: none !important; }
+:root { --ease-out: cubic-bezier(.16, 1, .3, 1); --lime: #d6e7a9; }
+body { overflow-x: clip; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+main:focus { outline: none; }
+.scroll-progress { position: fixed; left: 0; right: 0; top: 0; height: 3px; transform: scaleX(0); transform-origin: left; background: #788e4f; z-index: 30; pointer-events: none; }
+.site-header { background: rgba(246,246,240,.93); backdrop-filter: blur(16px); }
+.nav-links a { position: relative; }
+.nav-links a:not(.github-link)::after { content: ''; position: absolute; left: 0; right: 0; bottom: 7px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .4s var(--ease-out); }
+.nav-links a:not(.github-link):hover::after { transform: scaleX(1); transform-origin: left; }
+.nav-links a:hover { text-decoration: none; }
+.nav-links .github-link { transition: background .3s, color .3s; }
+.nav-links .github-link:hover { background: var(--text); color: var(--paper); }
+.hero { grid-template-columns: 1.1fr 1fr; min-height: min(920px, calc(100svh - 86px)); gap: 24px; padding-block: 64px 58px; }
+.hero-copy { position: relative; z-index: 2; }
+.hero-label { font-size: .66rem; letter-spacing: .15em; }
+.hero h1 { font-size: clamp(4.6rem, 8.8vw, 8rem); line-height: .91; letter-spacing: -.048em; }
+.title-mask { display: block; overflow: hidden; padding: .06em .08em .14em 0; margin-bottom: -.15em; }
+.title-line { display: block; transform-origin: left bottom; }
+.hero h1 .last-line { position: relative; display: inline-block; }
+.hero-description { max-width: 385px; margin-top: 32px; font-size: 1rem; }
+.hero-note { display: flex; align-items: center; gap: 10px; }
+.hero-note::before { content: ''; width: 25px; height: 1px; background: #83916f; }
+.hero-actions .button { min-height: 54px; }
+.button { position: relative; isolation: isolate; overflow: hidden; transition: color .35s, border-color .35s; }
+.button::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--lime); transform: translateY(105%); transition: transform .5s var(--ease-out); }
+.button:hover::before { transform: translateY(0); }
+.button-primary:hover { background: var(--text); color: var(--text); transform: none; }
+.button .arrow, .button > span[aria-hidden], .text-link > span[aria-hidden], .quick-link .arrow { transition: transform .4s var(--ease-out); }
+.button:hover .arrow, .button:hover > span[aria-hidden], .text-link:hover > span[aria-hidden], .quick-link:hover .arrow { transform: translate(3px, -3px); }
+.button[href="#apps"]:hover .arrow { transform: translateY(4px); }
+
+.sculpture-panel { min-width: 0; position: relative; margin-top: 18px; }
+.sculpture-heading { display: flex; justify-content: space-between; gap: 16px; padding: 0 16px; color: var(--muted); font-size: .62rem; letter-spacing: .13em; }
+.live-badge { display: inline-flex; gap: 7px; align-items: center; }
+.live-badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #6d874b; }
+.sculpture-stage { position: relative; width: 100%; aspect-ratio: 1; margin-block: 0 -4px; background: radial-gradient(ellipse at 50% 50%, #e3e8d18a 0%, transparent 64%); }
+.sculpture-stage::before, .sculpture-stage::after { content: '+'; position: absolute; color: #89977b; font: 16px monospace; top: 18%; left: 6%; pointer-events: none; }
+.sculpture-stage::after { left: auto; right: 7%; top: auto; bottom: 20%; }
+#kinetic-canvas, .sculpture-fallback { position: absolute; inset: 0; width: 100%; height: 100%; }
+#kinetic-canvas { opacity: 0; touch-action: pan-y; }
+.has-canvas #kinetic-canvas { opacity: 1; }
+.has-canvas .sculpture-fallback { display: none; }
+.sculpture-fallback { padding: 10%; }
+.sculpture-ground { position: absolute; bottom: 10%; left: 29%; width: 42%; height: 16px; background: #52663e13; border-radius: 50%; filter: blur(10px); pointer-events: none; }
+.sculpture-controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 16px; }
+.shape-status { display: flex; align-items: baseline; gap: 10px; }
+.shape-number { font: .67rem monospace; color: var(--muted); }
+.shape-name { font-family: var(--serif); font-size: 2rem; font-style: italic; }
+.shape-switch { display: inline-flex; align-items: center; gap: 16px; min-height: 44px; background: transparent; border: 1px solid #bfc8b2; border-radius: 99px; padding: 9px 15px; font-size: .72rem; transition: background .3s; }
+.shape-switch:hover { background: #e5ebd7; }
+.shape-switch span { font-size: 1.2rem; }
+.sculpture-hint { text-align: center; margin-top: 17px; font-size: .67rem; color: var(--muted); }
+.touch-hint { display: none; }
+.sculpture-panel .quick-links { margin-top: 24px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.sculpture-panel .quick-link { border-color: var(--line); background: transparent; padding: 10px 12px; font-size: .76rem; }
+.sculpture-panel .quick-link:hover { background: #e8eddd; }
+.quick-icon { width: 24px; height: 24px; }
+.intro-strip { margin-top: 12px; }
+
+.motion-ribbon { overflow: hidden; padding: 40px 0 32px; border-bottom: 1px solid var(--line); }
+.ribbon-track { width: max-content; display: flex; align-items: center; gap: 36px; font-family: var(--serif); font-size: clamp(3.5rem, 6vw, 6rem); line-height: 1.05; letter-spacing: -.035em; color: #526148; will-change: transform; }
+.ribbon-track em { font-weight: 400; }
+.ribbon-star { font: .65em Georgia, serif; color: #8c9e6c; }
+.ribbon-outline { -webkit-text-stroke: 1px #5d6e4e; color: transparent; }
+
+.projects { padding-block: 100px 90px; }
+.section-heading { margin-bottom: 48px; }
+.section-heading h2 { font-size: clamp(3rem, 5vw, 4.8rem); }
+.apps-grid { grid-template-columns: 1fr; gap: 36px; }
+.app-card { display: grid; grid-template-columns: 1.12fr 1fr; border-radius: 20px; }
+.app-card:nth-child(2) { grid-template-columns: 1fr 1.12fr; }
+.app-card:nth-child(2) .app-art { order: 2; }
+.app-art { min-width: 0; height: 460px; perspective: 1000px; isolation: isolate; }
+.card-body { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
+.card-category { font-size: .64rem; margin-bottom: 25px; }
+.card-body h3 { font-size: clamp(2.8rem, 4.2vw, 4.2rem); }
+.card-description { margin-top: 20px; }
+.card-actions { margin-top: 30px; }
+.sleep-art { background: #dfe7ed; }
+.sleep-art::before { content: ''; position: absolute; width: 290px; height: 290px; border: 1px solid #a7b8c37d; border-radius: 50%; z-index: -1; box-shadow: 0 0 0 32px #adbdc529, 0 0 0 64px #adbdc519; }
+.pass-art { background: #e6e8d8; }
+.pass-art::before { content: ''; position: absolute; width: 275px; height: 275px; border: 1px solid #aab49685; transform: rotate(45deg); z-index: -1; box-shadow: 0 0 0 28px #b5bea129, 0 0 0 56px #b5bea119; border-radius: 40px; }
+.app-art::after { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: radial-gradient(320px circle at var(--light-x, 50%) var(--light-y, 40%), #fff8, transparent 70%); opacity: 0; transition: opacity .5s; mix-blend-mode: soft-light; }
+.app-art:hover::after { opacity: 1; }
+.float-wrap { width: min(100%, 310px); animation: float 7s ease-in-out infinite; animation-play-state: paused; }
+.app-card.is-in-view .float-wrap { animation-play-state: running; }
+.app-card:nth-child(2) .float-wrap { animation-delay: -2s; }
+.sleep-preview, .pass-preview { width: 100%; position: relative; margin: 0; transition: transform .6s var(--ease-out); will-change: auto; }
+.sleep-preview { transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) rotate(-6deg); padding: 28px; box-shadow: 14px 24px 50px #1a314e30; }
+.pass-preview { transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) rotate(6deg); padding: 28px; box-shadow: -12px 24px 50px #34442725; }
+.sleep-total { font-size: 4.7rem; margin-block: 18px 22px; }
+.sleep-times { padding-top: 17px; font-size: .8rem; }
+.preview-header { font-size: .88rem; }
+.pass-brand { font-size: 2.1rem; }
+.pass-dots { font-size: .95rem; }
+.pass-options { margin-top: 20px; }
+.art-label { z-index: 3; }
+.preview-note { z-index: 3; }
+.next-project { padding-top: 30px; margin-top: 36px; }
+.next-symbol { display: inline-block; }
+.next-project.is-in-view .next-symbol { animation: slow-spin 20s linear infinite; }
+
+.manifesto { background: #202c22; color: #edf2de; position: relative; overflow: hidden; padding-block: 110px; isolation: isolate; }
+.manifesto::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .2; background-image: radial-gradient(#bdcda3 1px, transparent 1px); background-size: 28px 28px; z-index: -1; mask-image: linear-gradient(90deg, transparent 45%, black); }
+.manifesto-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; color: #c0cfb1; }
+.manifesto-top .eyebrow { font-size: .68rem; }
+.manifesto-mark { display: inline-block; font: 4rem Georgia, serif; line-height: 1; }
+.manifesto.is-in-view .manifesto-mark { animation: slow-spin 30s linear infinite; }
+.manifesto h2 { font-size: clamp(4.7rem, 9.4vw, 9rem); line-height: 1; margin-top: 55px; letter-spacing: -.04em; }
+.ink-line { display: table; color: #edf2de; }
+.ink-line em { color: inherit; }
+@supports (background-clip: text) {
+  .ink-line { background: linear-gradient(90deg, #edf2de calc(var(--ink, 1) * 100%), #8b9980 0); background-clip: text; -webkit-background-clip: text; color: transparent; }
+}
+.manifesto-bottom { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-top: 50px; padding-top: 26px; border-top: 1px solid #51634b; }
+.manifesto-bottom p { max-width: 365px; color: #c7d2be; font-size: .92rem; line-height: 1.8; }
+.manifesto-bottom .text-link { color: #e4edce; text-decoration-color: #849474; }
+.manifesto a:focus-visible { outline-color: var(--lime); }
+.about { padding-block: 95px; border-top: 0; }
+.about h2 { font-size: clamp(3.7rem, 6vw, 5.8rem); }
+.tech-list li { transition: background .3s, transform .3s; }
+.tech-list li:hover { background: #e3ead6; transform: translateY(-4px); }
+.footer-wordmark { font-family: var(--serif); font-size: clamp(5rem, 19vw, 19rem); line-height: 1.05; letter-spacing: -.07em; text-align: center; overflow: hidden; padding-block: 12px 6px; border-bottom: 1px solid var(--line); color: #364b32; }
+.footer-wordmark em { color: #7b8c65; }
+.footer-content { padding-bottom: 90px; }
+
+.motion-toggle { position: fixed; bottom: 20px; right: 24px; z-index: 15; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; border: 1px solid #c3cbb5; border-radius: 99px; padding: 10px 16px; color: #283027; background: #f6f6f0f2; box-shadow: 0 4px 20px #2530270d; font-size: .72rem; backdrop-filter: blur(12px); }
+.motion-toggle:hover { background: #e3ebd5; }
+.motion-bars { display: flex; align-items: center; height: 15px; gap: 3px; }
+.motion-bars i { display: block; width: 2px; height: 10px; background: #526a3e; animation: equalizer 1.3s ease-in-out infinite alternate; }
+.motion-bars i:nth-child(2) { animation-delay: -.5s; height: 15px; }
+.motion-bars i:nth-child(3) { animation-delay: -.9s; height: 7px; }
+@keyframes float { 0%, 100% { transform: translateY(7px); } 50% { transform: translateY(-10px); } }
+@keyframes slow-spin { to { transform: rotate(360deg); } }
+@keyframes equalizer { from { transform: scaleY(.4); } to { transform: scaleY(1); } }
+
+/* A single switch also governs CSS, scroll effects, hover movement and WAAPI. */
+html[data-motion="paused"] { scroll-behavior: auto; }
+html[data-motion="paused"] *, html[data-motion="paused"] *::before, html[data-motion="paused"] *::after,
+html[data-tab-hidden="true"] *, html[data-tab-hidden="true"] *::before, html[data-tab-hidden="true"] *::after { animation-play-state: paused !important; }
+html[data-motion="paused"] *, html[data-motion="paused"] *::before, html[data-motion="paused"] *::after { transition: none !important; }
+html[data-motion="paused"] .sleep-preview { transform: rotate(-6deg); }
+html[data-motion="paused"] .pass-preview { transform: rotate(6deg); }
+html[data-motion="paused"] .button::before { display: none; }
+html[data-motion="paused"] .button-primary:hover { color: var(--paper); }
+html[data-motion="paused"] .button:hover span, html[data-motion="paused"] .text-link:hover span,
+html[data-motion="paused"] .quick-link:hover .arrow, html[data-motion="paused"] .tech-list li:hover { transform: none; }
+
+@media (max-width: 1000px) {
+  .hero { gap: 8px; min-height: auto; padding-block: 64px; }
+  .hero h1 { font-size: clamp(4.5rem, 9vw, 6.5rem); }
+  .sculpture-panel .quick-icon { display: none; }
+  .sculpture-heading { padding-inline: 0; font-size: .55rem; }
+  .sculpture-controls { padding-inline: 0; }
+  .shape-switch { gap: 8px; font-size: .66rem; padding-inline: 10px; }
+  .shape-name { font-size: 1.7rem; }
+  .card-body { padding: 30px; }
+  .app-art { height: 390px; padding: 32px; }
+  .float-wrap { width: min(100%, 290px); }
+  .sleep-preview, .pass-preview { padding: 23px; }
+  .pass-dots { letter-spacing: .05em; font-size: .85rem; }
+}
+@media (max-width: 680px) {
+  .hero { grid-template-columns: 1fr; gap: 34px; padding-block: 46px 30px; }
+  .hero h1 { font-size: clamp(4rem, 19vw, 7rem); }
+  .hero-label { font-size: .58rem; letter-spacing: .12em; margin-bottom: 24px; }
+  .hero-description { margin-top: 28px; font-size: .98rem; max-width: 340px; }
+  .hero-actions { gap: 12px 18px; margin-top: 24px; }
+  .hero-actions .text-link { font-size: .81rem; }
+  .sculpture-panel { margin-top: 6px; }
+  .sculpture-heading { font-size: .6rem; }
+  .sculpture-stage { width: min(100%, 410px); margin-inline: auto; }
+  .sculpture-controls { padding-inline: 6px; }
+  .shape-switch { font-size: .72rem; padding-inline: 14px; }
+  .sculpture-panel .quick-links { margin-top: 20px; }
+  .sculpture-panel .quick-link { min-height: 46px; }
+  .pointer-hint { display: none; }
+  .touch-hint { display: inline; }
+  .motion-ribbon { padding-block: 30px; }
+  .ribbon-track { gap: 22px; font-size: 3.9rem; }
+  .projects { padding-block: 60px; }
+  .section-heading { margin-bottom: 30px; }
+  .section-heading h2 { font-size: 3rem; }
+  .apps-grid { gap: 28px; }
+  .app-card, .app-card:nth-child(2) { grid-template-columns: 1fr; }
+  .app-card:nth-child(2) .app-art { order: 0; }
+  .app-art { height: 335px; padding: 32px; }
+  .card-body { padding: 28px 24px; }
+  .card-body h3 { font-size: 3rem; }
+  .card-category { margin-bottom: 16px; font-size: .62rem; }
+  .card-description { margin-top: 14px; }
+  .card-actions { margin-top: 24px; }
+  .manifesto { padding-block: 64px; }
+  .manifesto h2 { font-size: clamp(3.1rem, 11.6vw, 4.8rem); margin-top: 40px; }
+  .manifesto-top .eyebrow { font-size: .6rem; }
+  .manifesto-mark { font-size: 2.5rem; }
+  .manifesto-bottom { align-items: start; flex-direction: column; margin-top: 36px; gap: 20px; }
+  .about { padding-block: 60px; }
+  .about h2 { font-size: 3.8rem; }
+  .footer-content { padding-bottom: 86px; }
+  .motion-toggle { bottom: 16px; right: 16px; padding-inline: 13px; font-size: .68rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="active"]) { scroll-behavior: auto; }
+  html:not([data-motion="active"]) *, html:not([data-motion="active"]) *::before, html:not([data-motion="active"]) *::after { animation: none !important; transition: none !important; }
+}
+
   </style>
 </head>
 <body id="top">
+  <div class="scroll-progress" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Saltar al contenido</a>
+  <button class="motion-toggle" type="button" aria-pressed="false" hidden><span class="motion-bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="motion-label">Pausar movimiento</span></button>
   <header class="site-header">
     <nav class="nav wrap" aria-label="Navegación principal">
       <a class="logo" href="#top" aria-label="AngelDLO, inicio">Angel<em>DLO</em></a>
@@ -221,24 +430,36 @@
     </nav>
   </header>
 
-  <main id="main" class="wrap" tabindex="-1">
-    <section class="hero" aria-labelledby="hero-title">
-      <div>
-        <p class="eyebrow hero-label"><span class="status-dot" aria-hidden="true"></span>El pequeño laboratorio de AngelDLO</p>
-        <h1 id="hero-title">Apps simples.<br>Para tu<br><em>día a día.</em></h1>
-        <p class="hero-description">Ideas que se convierten en herramientas. Construyo apps web útiles, cuidadas y fáciles de usar.</p>
+  <main id="main" tabindex="-1">
+    
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow hero-label"><span class="status-dot" aria-hidden="true"></span>AngelDLO · Apps, diseño &amp; experimentos</p>
+        <h1 id="hero-title"><span class="title-mask"><span class="title-line">Ideas que</span></span> <span class="title-mask"><span class="title-line">cobran</span></span> <span class="title-mask"><em class="title-line last-line">vida.</em></span></h1>
+        <p class="hero-description">Un pequeño laboratorio de apps web.<br>Hechas para ser útiles. Diseñadas para sentirse diferentes.</p>
         <div class="hero-actions">
           <a class="button button-primary" href="#apps">Explorar apps <span class="arrow" aria-hidden="true">↓</span></a>
-          <a class="text-link" href="https://github.com/AngelDLO" target="_blank" rel="noopener noreferrer">Conoce el código <span aria-hidden="true">↗</span><span class="sr-only"> en GitHub (abre en otra pestaña)</span></a>
+          <a class="text-link" href="https://github.com/AngelDLO" target="_blank" rel="noopener noreferrer">Detrás del código <span aria-hidden="true">↗</span><span class="sr-only"> en GitHub (abre en otra pestaña)</span></a>
         </div>
-        <p class="hero-note">Pruébalas directamente en tu navegador.</p>
+        <p class="hero-note">Desliza. Explora. Déjate sorprender.</p>
       </div>
-      <div class="hero-art">
-        <div aria-hidden="true">
-          <div class="art-top"><span>IDEAS EN CONSTRUCCIÓN</span><span>VOL. 01</span></div>
-          <div class="orbit"><div class="orb"><span class="asterisk">✳</span></div><i class="orbit-dot"></i><i class="orbit-dot"></i></div>
-          <p class="art-caption">Un poco de código. Muchas ideas.</p>
+      <div class="sculpture-panel">
+        <div class="sculpture-heading"><span>ESTUDIO DE MOVIMIENTO / 001</span><span class="live-badge">FORMA VIVA</span></div>
+        <div class="sculpture-stage" aria-hidden="true">
+          <div class="sculpture-ground"></div>
+          <svg class="sculpture-fallback" viewBox="0 0 300 300" fill="none" stroke="#63794b" stroke-width="1.2">
+            <g transform="translate(150 150) rotate(-24)">
+              <ellipse rx="116" ry="70"/><ellipse rx="111" ry="64"/><ellipse rx="106" ry="58"/><ellipse rx="100" ry="52"/><ellipse rx="94" ry="46"/><ellipse rx="88" ry="40"/><ellipse rx="82" ry="34"/><ellipse rx="76" ry="28"/>
+              <ellipse rx="101" ry="91" transform="rotate(60)"/><ellipse rx="93" ry="83" transform="rotate(60)"/><ellipse rx="85" ry="75" transform="rotate(60)"/>
+            </g>
+          </svg>
+          <canvas id="kinetic-canvas"></canvas>
         </div>
+        <div class="sculpture-controls">
+          <p class="shape-status" role="status" aria-live="polite" aria-atomic="true"><span class="shape-number" hidden>01 / 03</span><span class="shape-name">Órbita</span></p>
+          <button class="shape-switch" type="button" hidden>Cambiar forma <span aria-hidden="true">↻</span></button>
+        </div>
+        <p class="sculpture-hint" hidden><span class="pointer-hint">Mueve el cursor y explora sus tres formas.</span><span class="touch-hint">Tres formas. Toca «Cambiar forma» y explora.</span></p>
         <div class="quick-links" aria-label="Accesos a las apps">
           <a class="quick-link" href="https://angeldlo.github.io/Sleep-Tracker/" target="_blank" rel="noopener noreferrer"><span class="quick-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z"/></svg></span>Sleep Tracker <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (abre en otra pestaña)</span></a>
           <a class="quick-link" href="https://angeldlo.github.io/Password-Generator/" target="_blank" rel="noopener noreferrer"><span class="quick-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg></span>PassGen <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (abre en otra pestaña)</span></a>
@@ -246,13 +467,16 @@
       </div>
     </section>
 
-    <div class="intro-strip">
+    <div class="intro-strip wrap">
       <span><b aria-hidden="true">↗</b> 2 apps para explorar</span>
       <span><b aria-hidden="true">⌘</b> Código disponible en GitHub</span>
       <span><b aria-hidden="true">✳</b> Hechas con atención al detalle</span>
     </div>
 
-    <section id="apps" class="projects" aria-labelledby="apps-title">
+
+    <div class="motion-ribbon" aria-hidden="true"><div class="ribbon-track"><span>Imaginar.</span><span class="ribbon-star">✳</span><em>Crear.</em><span class="ribbon-star">✳</span><span class="ribbon-outline">Repetir.</span><span class="ribbon-star">✳</span><span>Imaginar.</span><span class="ribbon-star">✳</span><em>Crear.</em><span class="ribbon-star">✳</span><span class="ribbon-outline">Repetir.</span></div></div>
+
+    <section id="apps" class="projects wrap" aria-labelledby="apps-title">
       <div class="section-heading">
         <div><p class="eyebrow">01 — Proyectos</p><h2 id="apps-title">Pequeñas apps,<br><em>grandes posibilidades.</em></h2></div>
         <p>Elige una, pruébala y descubre lo que hay detrás.</p>
@@ -303,7 +527,16 @@
       </div>
     </section>
 
-    <section id="about" class="about" aria-labelledby="about-title">
+
+    <section class="manifesto" aria-labelledby="manifesto-title">
+      <div class="wrap">
+        <div class="manifesto-top"><p class="eyebrow">La idea detrás de cada proyecto</p><span class="manifesto-mark" aria-hidden="true">✳</span></div>
+        <h2 id="manifesto-title"><span class="ink-line">El código</span> <span class="ink-line">también puede</span> <span class="ink-line"><em>emocionar.</em></span></h2>
+        <div class="manifesto-bottom"><p>Una interacción inesperada. Un detalle que responde. Una herramienta que dan ganas de volver a usar.</p><a class="text-link" href="#about">Conoce al creador <span aria-hidden="true">↘</span></a></div>
+      </div>
+    </section>
+
+    <section id="about" class="about wrap" aria-labelledby="about-title">
       <div><p class="eyebrow">02 — Detrás del código</p><h2 id="about-title">Hola, soy<br><em>AngelDLO.</em></h2></div>
       <div class="about-copy">
         <p>Me gusta transformar ideas en aplicaciones que se sientan bien al usar. Busco que cada proyecto tenga una interfaz cuidada, código sencillo y una utilidad clara.</p>
@@ -314,7 +547,355 @@
   </main>
 
   <footer class="site-footer">
+    <div class="footer-wordmark" aria-hidden="true">Angel<em>DLO</em></div>
     <div class="wrap footer-content"><a class="logo" href="#top" aria-label="AngelDLO, volver al inicio">Angel<em>DLO</em></a><p class="footer-copy">© 2026 AngelDLO · Hecho con curiosidad y código.</p><a class="text-link" href="#top">Volver arriba <span aria-hidden="true">↑</span></a></div>
   </footer>
+<script>
+/* A small, dependency-free 3D ribbon renderer. All geometry is generated locally. */
+function createKineticSculpture(canvas, options = {}) {
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  const TAU = Math.PI * 2;
+  const mobile = matchMedia('(max-width: 680px)').matches;
+  const rings = mobile ? 22 : 32;
+  const steps = mobile ? 80 : 112;
+  const count = rings * steps;
+  const shapes = Array.from({length: 3}, () => new Float32Array(count * 3));
+  const source = new Float32Array(count * 3);
+  const points = Array.from({length: count}, () => ({x: 0, y: 0, z: 0}));
+  const bins = Array.from({length: 12}, () => []);
+  let width = 1, height = 1, dpr = 1, current = 0, morph = 1;
+  let time = 0, last = null, frame = null, paused = !!options.paused, visible = true, disposed = false;
+  let pointerX = 0, pointerY = 0, targetX = 0, targetY = 0, progress = 0;
+  let bounds = null;
+
+  for (let ring = 0; ring < rings; ring++) {
+    for (let step = 0; step < steps; step++) {
+      const u = step / steps * TAU;
+      // The winding turns individual threads into one continuous-looking woven surface.
+      const v = ring / rings * TAU + u * 3;
+      const i = (ring * steps + step) * 3;
+      const radius = .91 + .34 * Math.cos(v);
+      shapes[0].set([radius * Math.cos(u), .34 * Math.sin(v), radius * Math.sin(u)], i);
+      const knot = .7 + .28 * Math.cos(3 * u) + .16 * Math.cos(v);
+      shapes[1].set([knot * Math.cos(2 * u), .48 * Math.sin(3 * u) + .16 * Math.sin(v), knot * Math.sin(2 * u)], i);
+      const petal = .84 + .22 * Math.cos(5 * u) + .19 * Math.cos(v);
+      shapes[2].set([petal * Math.cos(u), .19 * Math.sin(5 * u) + .19 * Math.sin(v), petal * Math.sin(u)], i);
+    }
+  }
+  source.set(shapes[0]);
+  const ease = t => t * t * (3 - 2 * t);
+
+  function paint() {
+    ctx.clearRect(0, 0, width, height);
+    const scale = Math.min(width, height) * .305;
+    const ax = .79 + Math.sin(time * .23) * .18 + pointerY * .3 + progress * .5;
+    const ay = time * .15 + pointerX * .42;
+    const az = -.22 + Math.sin(time * .17) * .12;
+    const cx = Math.cos(ax), sx = Math.sin(ax), cy = Math.cos(ay), sy = Math.sin(ay), cz = Math.cos(az), sz = Math.sin(az);
+    const blend = ease(morph);
+    const target = shapes[current];
+    const breath = 1 + Math.sin(time * .7) * .024;
+    let extentX = 0, extentY = 0;
+    for (let i = 0; i < count; i++) {
+      const at = i * 3;
+      const x = (source[at] + (target[at] - source[at]) * blend) * breath;
+      const y = (source[at+1] + (target[at+1] - source[at+1]) * blend) * breath;
+      const z = (source[at+2] + (target[at+2] - source[at+2]) * blend) * breath;
+      const x1 = x * cy + z * sy, z1 = -x * sy + z * cy;
+      const y2 = y * cx - z1 * sx, z2 = y * sx + z1 * cx;
+      const perspective = 3.8 / (3.8 + z2);
+      const p = points[i];
+      p.x = width * .5 + (x1 * cz - y2 * sz) * scale * perspective;
+      p.y = height * .48 + (x1 * sz + y2 * cz) * scale * perspective;
+      p.z = z2;
+      extentX = Math.max(extentX, Math.abs(p.x - width * .5));
+      extentY = Math.max(extentY, Math.abs(p.y - height * .48));
+    }
+    // Perspective may enlarge the nearest strands; keep every silhouette inside the stage.
+    const fit = Math.min(1, width * .44 / (extentX || 1), height * .43 / (extentY || 1));
+    if (fit < 1) for (const p of points) {
+      p.x = width * .5 + (p.x - width * .5) * fit;
+      p.y = height * .48 + (p.y - height * .48) * fit;
+    }
+
+    // Draw far threads first; close threads have more contrast and thickness.
+    for (const bin of bins) bin.length = 0;
+    for (let i = 0; i < count; i++) {
+      const next = i % steps === steps-1 ? i-steps+1 : i+1;
+      const depth = (points[i].z + points[next].z) * .5;
+      const bucket = Math.max(0, Math.min(11, Math.floor((1.5-depth) * 4)));
+      bins[bucket].push(i, next);
+    }
+    ctx.lineCap = 'round';
+    for (let bucket = 0; bucket < bins.length; bucket++) {
+      const light = 69 - bucket * 4.4;
+      ctx.strokeStyle = `hsla(83, 24%, ${light}%, ${.36 + bucket * .047})`;
+      ctx.lineWidth = .65 + bucket * .066;
+      ctx.beginPath();
+      const bin = bins[bucket];
+      for (let n = 0; n < bin.length; n += 2) {
+        const a = points[bin[n]], b = points[bin[n+1]];
+        ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+      }
+      ctx.stroke();
+    }
+    // Tiny highlights make the surface read as strands, rather than a flat silhouette.
+    ctx.fillStyle = '#c6d999';
+    for (let i = 0; i < count; i += 37) {
+      if (points[i].z > 0) continue;
+      ctx.beginPath(); ctx.arc(points[i].x, points[i].y, 1.25, 0, TAU); ctx.fill();
+    }
+    canvas.dataset.shape = String(current);
+  }
+
+  function canRun() { return !paused && visible && !document.hidden && !disposed; }
+  function tick(stamp) {
+    frame = null;
+    if (!canRun()) { last = null; return; }
+    const elapsed = last === null ? 1/60 : (stamp - last)/1000;
+    if (mobile && last !== null && elapsed < 1/31) { frame = requestAnimationFrame(tick); return; }
+    const dt = Math.min(.06, elapsed);
+    last = stamp;
+    time += dt;
+    morph = Math.min(1, morph + dt / 1.65);
+    const smoothing = 1 - Math.exp(-dt * 5);
+    pointerX += (targetX - pointerX) * smoothing;
+    pointerY += (targetY - pointerY) * smoothing;
+    paint();
+    frame = requestAnimationFrame(tick);
+  }
+  function schedule() { if (canRun() && frame === null) frame = requestAnimationFrame(tick); }
+  function stop() { if (frame !== null) cancelAnimationFrame(frame); frame = null; last = null; }
+  function resize() {
+    bounds = canvas.getBoundingClientRect();
+    width = Math.max(1, bounds.width); height = Math.max(1, bounds.height);
+    dpr = Math.min(devicePixelRatio || 1, mobile ? 1.25 : 1.6);
+    canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    paint();
+  }
+  function pointerMove(event) {
+    if (paused || event.pointerType === 'touch') return;
+    // Read once at pointer entry, not once per animation frame.
+    if (!bounds) bounds = canvas.getBoundingClientRect();
+    targetX = Math.max(-1, Math.min(1, (event.clientX - bounds.left) / width * 2 - 1));
+    targetY = Math.max(-1, Math.min(1, (event.clientY - bounds.top) / height * 2 - 1));
+  }
+  function pointerEnter() { bounds = canvas.getBoundingClientRect(); }
+  function pointerLeave() { targetX = targetY = 0; }
+  function visibilityChange() { if (document.hidden) stop(); else schedule(); }
+  canvas.addEventListener('pointerenter', pointerEnter);
+  canvas.addEventListener('pointermove', pointerMove, {passive: true});
+  canvas.addEventListener('pointerleave', pointerLeave);
+  document.addEventListener('visibilitychange', visibilityChange);
+  const observer = typeof ResizeObserver === 'function' ? new ResizeObserver(resize) : null;
+  if (observer) observer.observe(canvas); else window.addEventListener('resize', resize, {passive: true});
+  resize(); schedule();
+  return {
+    setPaused(value) { paused = value; if (paused) { stop(); } else schedule(); },
+    setVisible(value) { visible = value; if (visible) schedule(); else stop(); },
+    setProgress(value) { progress = Math.max(0, Math.min(1, value)); },
+    nextShape() {
+      const blend = ease(morph), old = shapes[current];
+      for (let i = 0; i < source.length; i++) source[i] += (old[i] - source[i]) * blend;
+      current = (current + 1) % shapes.length;
+      morph = paused ? 1 : 0;
+      paint(); schedule();
+      return current;
+    },
+    destroy() {
+      disposed = true; stop(); observer?.disconnect();
+      window.removeEventListener('resize', resize);
+      document.removeEventListener('visibilitychange', visibilityChange);
+      canvas.removeEventListener('pointerenter', pointerEnter);
+      canvas.removeEventListener('pointermove', pointerMove);
+      canvas.removeEventListener('pointerleave', pointerLeave);
+    }
+  };
+}
+
+(() => {
+  'use strict';
+  const root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+  const toggle = document.querySelector('.motion-toggle');
+  const toggleLabel = toggle.querySelector('.motion-label');
+  const shapeButton = document.querySelector('.shape-switch');
+  const shapeNumber = document.querySelector('.shape-number');
+  const shapeName = document.querySelector('.shape-name');
+  const canvas = document.getElementById('kinetic-canvas');
+  const stage = document.querySelector('.sculpture-stage');
+  const hero = document.querySelector('.hero');
+  const ribbon = document.querySelector('.ribbon-track');
+  const ribbonSection = document.querySelector('.motion-ribbon');
+  const progressBar = document.querySelector('.scroll-progress');
+  const manifesto = document.querySelector('.manifesto');
+  const inkLines = [...document.querySelectorAll('.ink-line')];
+  const liveAnimations = new Set();
+  const tiltResets = [];
+  let preference = 'auto';
+  try { preference = localStorage.getItem('angeldlo-motion') || 'auto'; } catch (_) { /* Storage may be unavailable. */ }
+  let enabled = preference === 'active' || (preference === 'auto' && !reduce.matches);
+  let scrollFrame = null;
+  let sculpture = null;
+  const clamp = value => Math.max(0, Math.min(1, value));
+  const ease = 'cubic-bezier(.16, 1, .3, 1)';
+
+  function animate(element, keyframes, timing = {}) {
+    if (!enabled || document.hidden || !element.animate) return;
+    const animation = element.animate(keyframes, {duration: 1000, easing: ease, fill: 'both', ...timing});
+    liveAnimations.add(animation);
+    animation.onfinish = () => { liveAnimations.delete(animation); animation.cancel(); };
+  }
+
+  function updateScroll() {
+    scrollFrame = null;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    progressBar.style.transform = `scaleX(${max > 0 ? clamp(scrollY / max) : 0})`;
+    if (!enabled) {
+      ribbon.style.transform = 'none';
+      inkLines.forEach(line => line.style.setProperty('--ink', 1));
+      return;
+    }
+    // A native scroll stays native: only decorative layers respond to its position.
+    const ribbonTop = ribbonSection.getBoundingClientRect().top;
+    ribbon.style.transform = `translate3d(${-clamp((innerHeight - ribbonTop) / (innerHeight + ribbonSection.offsetHeight)) * 190}px,0,0)`;
+    const rect = manifesto.getBoundingClientRect();
+    const phase = clamp((innerHeight * .9 - rect.top) / Math.max(innerHeight * .85, rect.height * .8));
+    inkLines.forEach((line, index) => line.style.setProperty('--ink', clamp(phase * 3.5 - index * .8)));
+    sculpture?.setProgress(clamp(-hero.getBoundingClientRect().top / innerHeight));
+  }
+  function scheduleScroll() { if (scrollFrame === null) scrollFrame = requestAnimationFrame(updateScroll); }
+
+  function applyMotionPreference() {
+    enabled = preference === 'active' || (preference === 'auto' && !reduce.matches);
+    root.dataset.motion = enabled ? 'active' : 'paused';
+    toggle.setAttribute('aria-pressed', String(!enabled));
+    toggleLabel.textContent = enabled ? 'Pausar movimiento' : 'Activar movimiento';
+    toggle.title = !enabled && reduce.matches ? 'El movimiento reducido está activado en tu dispositivo. Puedes activar las animaciones aquí.' : '';
+    sculpture?.setPaused(!enabled);
+    if (!enabled) {
+      for (const animation of liveAnimations) animation.cancel();
+      liveAnimations.clear();
+      tiltResets.forEach(reset => reset());
+    }
+    updateScroll();
+  }
+
+  // Content has no hidden initial CSS state. A blocked script leaves a complete page.
+  applyMotionPreference();
+  toggle.hidden = false;
+  toggle.addEventListener('click', () => {
+    preference = enabled ? 'paused' : 'active';
+    try { localStorage.setItem('angeldlo-motion', preference); } catch (_) { /* Keep the in-memory choice. */ }
+    applyMotionPreference();
+  });
+  if (reduce.addEventListener) reduce.addEventListener('change', applyMotionPreference);
+  else reduce.addListener(applyMotionPreference);
+
+  try {
+    sculpture = createKineticSculpture(canvas, {paused: !enabled});
+    if (sculpture) {
+      stage.classList.add('has-canvas');
+      shapeButton.hidden = false;
+      shapeNumber.hidden = false;
+      document.querySelector('.sculpture-hint').hidden = false;
+      shapeButton.addEventListener('click', () => {
+        const index = sculpture.nextShape();
+        shapeNumber.textContent = `0${index + 1} / 03`;
+        shapeName.textContent = ['Órbita', 'Nudo', 'Flor'][index];
+        animate(shapeName, [{opacity: 0, transform: 'translateY(8px)'}, {opacity: 1, transform: 'translateY(0)'}], {duration: 450});
+      });
+      if ('IntersectionObserver' in window) {
+        const stageObserver = new IntersectionObserver(entries => {
+          sculpture.setVisible(entries[0].isIntersecting);
+        }, {rootMargin: '60px'});
+        stageObserver.observe(stage);
+      }
+    }
+  } catch (_) { /* Keep the SVG sculpture if Canvas is unavailable. */ }
+
+  // Transform wrappers keep float, pointer tilt and entrance choreography independent.
+  document.querySelectorAll('.sleep-preview, .pass-preview').forEach(preview => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'float-wrap';
+    preview.before(wrapper); wrapper.append(preview);
+  });
+
+  document.querySelectorAll('.app-art').forEach(art => {
+    let frame = null, rect = null, x = 0, y = 0;
+    const preview = art.querySelector('.sleep-preview, .pass-preview');
+    function reset() {
+      if (frame !== null) cancelAnimationFrame(frame);
+      frame = null; rect = null;
+      preview.style.removeProperty('--tilt-x'); preview.style.removeProperty('--tilt-y');
+      art.style.removeProperty('--light-x'); art.style.removeProperty('--light-y');
+    }
+    tiltResets.push(reset);
+    art.addEventListener('pointerenter', () => { rect = art.getBoundingClientRect(); });
+    art.addEventListener('pointermove', event => {
+      if (!enabled || !finePointer.matches || event.pointerType === 'touch') return;
+      if (!rect) rect = art.getBoundingClientRect();
+      x = clamp((event.clientX - rect.left) / rect.width);
+      y = clamp((event.clientY - rect.top) / rect.height);
+      if (frame !== null) return;
+      frame = requestAnimationFrame(() => {
+        frame = null;
+        preview.style.setProperty('--tilt-x', `${(y - .5) * -13}deg`);
+        preview.style.setProperty('--tilt-y', `${(x - .5) * 15}deg`);
+        art.style.setProperty('--light-x', `${x * 100}%`);
+        art.style.setProperty('--light-y', `${y * 100}%`);
+      });
+    }, {passive: true});
+    art.addEventListener('pointerleave', reset);
+  });
+
+  const seen = new WeakSet();
+  const revealTargets = document.querySelectorAll('.section-heading, .app-card, .next-project, .manifesto, .about > div, .footer-wordmark');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        const el = entry.target;
+        el.classList.toggle('is-in-view', entry.isIntersecting);
+        if (!entry.isIntersecting || seen.has(el)) continue;
+        seen.add(el);
+        if (el.classList.contains('manifesto')) continue;
+        animate(el, [{opacity: 0, transform: 'translateY(55px)'}, {opacity: 1, transform: 'translateY(0)'}], {duration: 1100});
+        if (el.classList.contains('app-card')) {
+          el.querySelectorAll('.card-body > *').forEach((child, i) => animate(child,
+            [{opacity: 0, transform: 'translateY(24px)'}, {opacity: 1, transform: 'translateY(0)'}], {delay: 100 + i * 75, duration: 850}));
+        }
+      }
+    }, {threshold: .13});
+    revealTargets.forEach(el => observer.observe(el));
+  }
+
+  document.querySelectorAll('.title-line').forEach((line, i) => animate(line,
+    [{transform: 'translateY(115%) rotate(5deg)'}, {transform: 'translateY(0) rotate(0deg)'}], {delay: 90 + i * 120, duration: 1200}));
+  ['.hero-label', '.hero-description', '.hero-actions', '.hero-note'].forEach((selector, i) => animate(document.querySelector(selector),
+    [{opacity: 0, transform: 'translateY(18px)'}, {opacity: 1, transform: 'translateY(0)'}], {delay: 80 + i * 130, duration: 1000}));
+  animate(document.querySelector('.sculpture-panel'), [{opacity: 0, transform: 'scale(.86) rotate(-6deg)'}, {opacity: 1, transform: 'scale(1) rotate(0deg)'}], {delay: 160, duration: 1600});
+
+  document.addEventListener('visibilitychange', () => {
+    root.dataset.tabHidden = String(document.hidden);
+    if (document.hidden) {
+      for (const animation of liveAnimations) animation.pause();
+      if (scrollFrame !== null) cancelAnimationFrame(scrollFrame);
+      scrollFrame = null;
+    } else {
+      if (enabled) for (const animation of liveAnimations) animation.play();
+      scheduleScroll();
+    }
+  });
+  window.addEventListener('scroll', scheduleScroll, {passive: true});
+  window.addEventListener('resize', () => { tiltResets.forEach(reset => reset()); scheduleScroll(); }, {passive: true});
+  window.addEventListener('pageshow', scheduleScroll);
+  root.dataset.tabHidden = String(document.hidden);
+  updateScroll();
+})();
+
+</script>
 </body>
 </html>
