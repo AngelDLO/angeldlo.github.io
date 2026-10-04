@@ -1,0 +1,14 @@
+import { build } from 'esbuild';
+import { mkdir, copyFile, writeFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+process.chdir(fileURLToPath(new URL('.',import.meta.url)));
+const out = new URL('./', import.meta.url);
+await mkdir(new URL('assets/', out), { recursive: true });
+await build({absWorkingDir:fileURLToPath(out),entryPoints:['src/main.js'],bundle:true,minify:true,format:'esm',target:['es2020'],outfile:fileURLToPath(new URL('assets/experience.js',out)),legalComments:'linked'});
+await copyFile('src/index.html',new URL('index.html',out));
+await copyFile('src/styles.css',new URL('assets/styles.css',out));
+await copyFile('public/moon-color.jpg',new URL('assets/moon-color.jpg',out));
+await copyFile('public/moon-height.jpg',new URL('assets/moon-height.jpg',out));
+await copyFile('node_modules/three/LICENSE',new URL('assets/three-LICENSE.txt',out));
+await writeFile(new URL('.nojekyll',out),'');
+console.log('Built index.html and assets/');
